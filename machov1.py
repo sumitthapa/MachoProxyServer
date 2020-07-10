@@ -2,7 +2,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import requests
-import asyncio
 import threading
 import random
 import time
