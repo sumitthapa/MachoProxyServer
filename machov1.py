@@ -10,7 +10,7 @@ import time
 thread_list = []
 class S(BaseHTTPRequestHandler):
     
-    print("\n\n\n ******* Main class ****** \n\n\n")
+    print("\n\n\n [ MachoProxyV1 Server ] \n\n\n")
 
     def do_POST(self):
         processcount = random.randint(1,101)
@@ -20,7 +20,9 @@ class S(BaseHTTPRequestHandler):
 
     def do_GET(self):
 
-        if self.path=='http://pink.com':
+        if self.path=='http://pink.com/':
+            self.send_response(200)
+            self.end_headers()
             self.wfile.write("This page is blocked by Macho proxy Server".encode('utf-8'))
         else:
             if self.command=='GET':
@@ -36,7 +38,7 @@ class S(BaseHTTPRequestHandler):
 
     def sendlinktoserver(self,url,processcount):
         s = requests.Session()
-        r = s.request('GET',url) #<----sending GET Request 
+        r = s.request('GET',url)
         self.send_response(200)
         self.end_headers()
         self.wfile.write(r.content)
@@ -71,13 +73,13 @@ def run(server_class=HTTPServer, handler_class=S, port=8070):
     logging.basicConfig(level=logging.INFO)
     server_address = ('localhost', port)
     httpd = server_class(server_address, handler_class)
-    logging.info('Starting httpd on port 8070...\n')
+    logging.info('[ Starting MachoProxyV1 listening on TCP-Socket port 8070 ] \n')
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    logging.info('Stopping httpd...\n')
+    logging.info('Stopping Proxy Sever...\n')
 
 if __name__ == '__main__':
     from sys import argv
