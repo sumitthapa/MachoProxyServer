@@ -20,7 +20,7 @@ class S(BaseHTTPRequestHandler):
 
     def do_GET(self):
 
-        if self.path=='http://travelraga.com/':
+        if self.path=='http://pink.com':
             self.wfile.write("This page is blocked by Macho proxy Server".encode('utf-8'))
         else:
             if self.command=='GET':
